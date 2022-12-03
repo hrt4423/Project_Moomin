@@ -3,26 +3,27 @@ new Vue ({
     data(){
         return{
             todos: [],
-            text: '',
+            text: 0,
+            score: '',
             apiKey: "dee51657f9ee6f0b90fff0b1a9fa69dd557a23475814d9b9eadc7154226e41a8",
             clientKey: "8b9cbea8e8391c33cb9bd74f4177a177df679ed4d3483ccb64ac6f0ac52e1319"
         };
     },
 
     methods: {
-        setData(){
-            var ncmb = new NCMB(this.apiKey, this.clientKey);
+        connectDataStore(){
+            let ncmb = new NCMB(this.apiKey, this.clientKey);
+            return ncmb;
+        },
 
-            // NCMB.Objectのサブクラスを生成
+        setGameScore(){
+            let ncmb = this.connectDataStore();
+            // NCMB.Objectのサブクラスを生成(≒テーブルを作成)
             var GameScore = ncmb.DataStore("GameScore");
-
             // クラスの新しいインスタンスを生成
             var gameScore = new GameScore();
 
-            var GameScore = ncmb.DataStore("GameScore");
-            var gameScore = new GameScore();
-
-            gameScore.set("score", 1337)
+            gameScore.set("score", this.score)
                 .set("playerName", "Taro")
                 .set("cheatMode", false)
                 .save()
@@ -32,10 +33,16 @@ new Vue ({
                 .catch(function(err){
                     // エラー処理
                 });
+            
+            this.resetScore();
         },
 
         inputText(e){
             this.text = e.target.value;
+        },
+
+        inputScore(e){
+            this.score = e.target.value;
         },
 
         addTodo(){
@@ -54,6 +61,10 @@ new Vue ({
         
         resetText(){
             this.text = '';
+        },
+
+        resetScore(){
+            this.score = 0;
         },
 
         deleteTodo(id){

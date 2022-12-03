@@ -13,7 +13,16 @@
 <body>
     <div id="app">
         <h3>データストア操作テスト</h3>
-        <button @click="setData">追加</button>
+        <input
+            type="text"
+            name="score"
+            class="input-score"
+            placeholder="スコアを入力"
+            :value="score"
+            @input="inputScore"
+        />
+        <button @click="setGameScore">スコアを追加</button>
+        
         <hr noshade>
 
 	    <article class="wrap">
@@ -46,7 +55,6 @@
             <button>設定</button>
         </section>
         </article>
-
     
         <article class="wrap">
             <section class="todo-form">
