@@ -18,11 +18,12 @@
             name="score"
             class="input-score"
             placeholder="スコアを入力"
+            inputmode="numeric"
             :value="score"
             @input="inputScore"
         />
         <button @click="setGameScore">スコアを追加</button>
-        
+
         <hr noshade>
 
 	    <article class="wrap">
