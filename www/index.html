@@ -7,7 +7,6 @@
     <script src="components/loader.js"></script>
     <link rel="stylesheet" href="components/loader.css">
     <link rel="stylesheet" href="css/style.css">
-    <script type="text/javascript" src="./script/dataStore.js"></script>
     
 </head>
 <body>
@@ -22,6 +21,7 @@
             :value="score"
             @input="inputScore"
         />
+        <button @click="connectDataStore">データストアに接続</button>
         <button @click="setGameScore">スコアを追加</button>
 
         <hr noshade>
