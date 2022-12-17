@@ -7,87 +7,86 @@
     <title>Vue Router：サンプル</title>
 </head>
 <body>
-    <div id="app">
-        <nav v-cloak>
-            <router-link to="/top">トップページ</router-link>
-            <router-link to="/users">ユーザー一覧ページ</router-link>
-            <router-link to="/users/new?redirect=true">新規ユーザー登録</router-link>
-            <router-link to="/login" v-show="!Auth.loggedIn()">ログイン</router-link>
-            <router-link to="/logout" v-show="Auth.loggedIn()">ログアウト</router-link>
-        </nav>
-        <router-view></router-view>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-    <script src="https://unpkg.com/vue-router@3.6.5/dist/vue-router.js"></script>
-    <script src="./script.js"></script>
-
+  <div id="app">
+      <nav v-cloak>
+          <router-link to="/top">トップページ</router-link>
+          <router-link to="/users">ユーザー一覧ページ</router-link>
+          <router-link to="/users/new?redirect=true">新規ユーザー登録</router-link>
+          <router-link to="/login" v-show="!Auth.loggedIn()">ログイン</router-link>
+          <router-link to="/logout" v-show="Auth.loggedIn()">ログアウト</router-link>
+      </nav>
+      <router-view></router-view>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-router@3.6.5/dist/vue-router.js"></script>
+  <script src="./script/script.js"></script>
 </body>
 </html>
 
 
-  <!-- ユーザー一覧ページのテンプレート -->
-  <script type="x-template" id="user-list">
-    <div>
-      <div class="loading" v-if="loading">読み込み中...</div>
-      <div v-if="error" class="error">
-        {{ error }}
-      </div>
-      <div v-for="user in users" :key="user.id">
-        <router-link :to="{ path: '/users/' + user.id }">{{ user.name }}</router-link>
-      </div>
+<!-- ユーザー一覧ページのテンプレート -->
+<script type="x-template" id="user-list">
+  <div>
+    <div class="loading" v-if="loading">読み込み中...</div>
+    <div v-if="error" class="error">
+      {{ error }}
     </div>
-  </script>
-  
-  <!-- ユーザー詳細ページのテンプレート -->
-  <script type="x-template" id="user-detail">
-    <div>
-      <div class="loading" v-if="loading">読み込み中...</div>
-      <div v-if="error" class="error">
-        {{ error }}
-      </div>
-      <div v-if="user">
-        <h2>{{ user.name }}</h2>
-        <p>{{ user.description }}</p>
-      </div>
+    <div v-for="user in users" :key="user.id">
+      <router-link :to="{ path: '/users/' + user.id }">{{ user.name }}</router-link>
     </div>
-  </script>
-  
-  <!-- ユーザー作成ページのテンプレート -->
-  <script type="x-template" id="user-create">
+  </div>
+</script>
+
+<!-- ユーザー詳細ページのテンプレート -->
+<script type="x-template" id="user-detail">
+  <div>
+    <div class="loading" v-if="loading">読み込み中...</div>
+    <div v-if="error" class="error">
+      {{ error }}
+    </div>
+    <div v-if="user">
+      <h2>{{ user.name }}</h2>
+      <p>{{ user.description }}</p>
+    </div>
+  </div>
+</script>
+
+<!-- ユーザー作成ページのテンプレート -->
+<script type="x-template" id="user-create">
+  <div>
+    <div class="sending" v-if="sending">Sending...</div>
     <div>
-      <div class="sending" v-if="sending">Sending...</div>
+      <h2>新規ユーザー作成</h2>
       <div>
-        <h2>新規ユーザー作成</h2>
-        <div>
-          <label>名前: </label>
-          <input type="text" v-model="user.name">
-        </div>
-        <div>
-          <label>説明文: </label>
-          <textarea v-model="user.description"></textarea>
-        </div>
-        <div v-if="error" class="error">
-          {{ error }}
-        </div>
-        <div>
-          <input type="button" @click="createUser" value="送信">
-        </div>
+        <label>名前: </label>
+        <input type="text" v-model="user.name">
+      </div>
+      <div>
+        <label>説明文: </label>
+        <textarea v-model="user.description"></textarea>
+      </div>
+      <div v-if="error" class="error">
+        {{ error }}
+      </div>
+      <div>
+        <input type="button" @click="createUser" value="送信">
       </div>
     </div>
-  </script>
-  
-  <!-- ログインページのテンプレート -->
-  <script type="x-template" id="login">
-    <div>
-      <h2>Login</h2>
-      <p v-if="$route.query.redirect">
-        ログインしてください
-      </p>
-      <form @submit.prevent="login">
-        <label><input v-model="email" placeholder="email"></label>
-        <label><input v-model="pass" placeholder="password" type="password"></label><br>
-        <button type="submit">ログイン</button>
-        <p v-if="error" class="error">ログインに失敗しました</p>
-      </form>
-    </div>
-  </script>
+  </div>
+</script>
+
+<!-- ログインページのテンプレート -->
+<script type="x-template" id="login">
+  <div>
+    <h2>Login</h2>
+    <p v-if="$route.query.redirect">
+      ログインしてください
+    </p>
+    <form @submit.prevent="login">
+      <label><input v-model="email" placeholder="email"></label>
+      <label><input v-model="pass" placeholder="password" type="password"></label><br>
+      <button type="submit">ログイン</button>
+      <p v-if="error" class="error">ログインに失敗しました</p>
+    </form>
+  </div>
+</script>

@@ -1,22 +1,51 @@
 // サンプルアプリケーション用のダミー認証モジュール
 var Auth = {
-    login: function (email, pass, cb) {
-      // ダミーデータを使った擬似ログイン
-      setTimeout(function () {
-        if (email === 'vue@example.com' && pass === 'vue') {
-          // ログイン成功時はローカルストレージにtokenを保存する
-          localStorage.token = Math.random().toString(36).substring(7)
-          if (cb) { cb(true) }
-        } else {
-          if (cb) { cb(false) }
-        }
-      }, 0)
+    props: {
+        ncmb:{
+            default: null,
+        },
     },
-  
+    //ログイン処理
+    login: function(){
+        //　userインスタンスの生成
+        var user = new ncmb.User();
+        // ユーザー名・パスワードを設定
+        user.set("userName", "Yamada Tarou") /* ユーザー名 */
+            .set("password", "password") /* パスワード */
+            .set("phone_number", "090-1234-5678"); /* 任意フィールドも追加可能 */
+        // ユーザーの新規登録処理
+        user.signUpByAccount()
+            .then(function(){
+            // 登録後処理
+            })
+            .catch(function(err){
+            // エラー処理
+            });
+    },
+
+    
+
+        login: function (email, pass, cb) {
+            // ダミーデータを使った擬似ログイン
+            setTimeout(function () {
+                if (email === 'vue@example.com' && pass === 'vue') {
+                // ログイン成功時はローカルストレージにtokenを保存する
+                localStorage.token = Math.random().toString(36).substring(7)
+                    if (cb) { cb(true) }
+                } else {
+                    if (cb) { cb(false) }
+                }
+            }, 0)
+        },
+    
+
+
+    //ログアウト処理
     logout: function () {
       delete localStorage.token
     },
-  
+    
+    //ログイン状態の確認
     loggedIn: function () {
       // ローカルストレージにtokenがあればログイン状態とみなす
       return !!localStorage.token
@@ -124,7 +153,7 @@ var UserList = {
     }
 }
 
-// ユーザー詳細コンポーネント
+// ユーザー詳細コンポーネント:現在無効にしています。
 var UserDetail = {
     template: '#user-detail',
     data: function () {
@@ -228,6 +257,7 @@ var router = new VueRouter({
             path: '/users/new',
             component: UserCreate,
             beforeEnter: function (to, from, next) {
+                //ログイン状態の判定
                 // 認証されていない状態でアクセスした時はloginページに遷移する
                 if (!Auth.loggedIn()) {
                 next({
@@ -268,7 +298,16 @@ var router = new VueRouter({
 // ルーターのインスタンスをrootとなるVueインスタンスに渡す
 var app = new Vue({
     data: {
-        Auth: Auth
+        Auth: Auth,
+        apiKey: "dee51657f9ee6f0b90fff0b1a9fa69dd557a23475814d9b9eadc7154226e41a8",
+        clientKey: "8b9cbea8e8391c33cb9bd74f4177a177df679ed4d3483ccb64ac6f0ac52e1319",
+        ncmb: null
     },
-    router: router
+    router: router,
+    methods: {
+        connectDataStore(){
+            this.ncmb = new NCMB(this.apiKey, this.clientKey);
+        },
+    }
+
 }).$mount('#app')
