@@ -13,9 +13,18 @@
     </script>
 </head>
 <body>
+<div id="app">
+    <button v-on:click="openModal">Click</button>
+    <div id="overlay" v-show="showContent">
+        <div id="content">
+            <p>これがモーダルウィンドウです。</p>
+            <p><button v-on:click="closeModal">close</button></p>
+        </div>
+    </div>
+    </div>
 
-        <div class="message">
-    <h2>お世話</h2>
+    <div class="message">
+        <h2>お世話</h2>
     </div>
     <img src="../image/shop.png" alt="ショップ画面" class="shop-img">
 
@@ -28,9 +37,9 @@
     <!-- メニュー -->
     <ul class="bottom-bannerfood">
         <li>
-        <a href="care.html">
         <div class="card card-skin">
         <div class="card__imgframe"></div>
+        <button class="button-style">
         <div class="card__textbox">
         <div class="card__titletext">
         おにぎり
@@ -39,13 +48,13 @@
         おいしいおにぎり<br>所字数:00
         </div>
         </div>
+        </button>
         </div>
-        </a>
         </li>
         <li>
-        <a href="care.html">
         <div class="card card-skin">
         <div class="card__imgframe"></div>
+        <button class="button-style">
         <div class="card__textbox">
         <div class="card__titletext">
         りんご
@@ -54,15 +63,15 @@
         新鮮なりんご<br>所字数:00
         </div>
         </div>
+        </button>
         </div>
-        </a>
         </li>
     </ul>
      <ul class="bottom-bannerfood">
         <li>
-        <a href="care.html">
         <div class="card card-skin">
         <div class="card__imgframe"></div>
+        <button class="button-style">
         <div class="card__textbox">
         <div class="card__titletext">
         アメ
@@ -71,13 +80,13 @@
         普通のアメ<br>所字数:00
         </div>
         </div>
+        </button>
         </div>
-        </a>
         </li>
         <li>
-        <a href="care.html">
         <div class="card card-skin">
         <div class="card__imgframe"></div>
+        <button class="button-style">
         <div class="card__textbox">
         <div class="card__titletext">
         ケーキ
@@ -86,8 +95,8 @@
         おいしいケーキ<br>所字数:00
         </div>
         </div>
+        </button>
         </div>
-        </a>
         </li>
      </ul>
 
@@ -98,6 +107,7 @@
     <li><a href="shop.html"><img src="../image/shopicon.png" class="icon"></a></li>
     <li><a href="care.html"><img src="../image/osewaicon.png" class="icon"></a></li>
    </ul>
-
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<script src="../script/script_shop.js"></script>
 </body>
 </html>
