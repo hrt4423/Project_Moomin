@@ -15,8 +15,8 @@ body,html{
     background-image: url(../image/shop.png);
     background-position: center;
     background-size: cover;
-    position:absolute;
-    width: 100%;
+    /*position:absolute;*/
+    width: auto;
     height: 100vh;
     z-index: 1;
 }
