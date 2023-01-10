@@ -14,14 +14,8 @@
 </head>
 <body>
 <div id="app">
-    <button v-on:click="openModal">Click</button>
-    <div id="overlay" v-show="showContent">
-        <div id="content">
-            <p>これがモーダルウィンドウです。</p>
-            <p><button v-on:click="closeModal">close</button></p>
-        </div>
-    </div>
-    </div>
+    <!-- modalclose -->
+    <open-modal v-show="showContent" v-on:from-child="closeModal"></open-modal>
 
     <div class="message">
         <h2>お世話</h2>
@@ -39,7 +33,7 @@
         <li>
         <div class="card card-skin">
         <div class="card__imgframe"></div>
-        <button class="button-style">
+        <button v-on:click="openModal" class="button-style">
         <div class="card__textbox">
         <div class="card__titletext">
         おにぎり
@@ -54,7 +48,7 @@
         <li>
         <div class="card card-skin">
         <div class="card__imgframe"></div>
-        <button class="button-style">
+        <button v-on:click="openModal" class="button-style">
         <div class="card__textbox">
         <div class="card__titletext">
         りんご
@@ -71,7 +65,7 @@
         <li>
         <div class="card card-skin">
         <div class="card__imgframe"></div>
-        <button class="button-style">
+        <button v-on:click="openModal" class="button-style">
         <div class="card__textbox">
         <div class="card__titletext">
         アメ
@@ -86,7 +80,7 @@
         <li>
         <div class="card card-skin">
         <div class="card__imgframe"></div>
-        <button class="button-style">
+        <button v-on:click="openModal" class="button-style">
         <div class="card__textbox">
         <div class="card__titletext">
         ケーキ
@@ -99,6 +93,9 @@
         </div>
         </li>
      </ul>
+
+</div>
+
 
     <!-- バナー -->
    <ul class="bottom-banner">
